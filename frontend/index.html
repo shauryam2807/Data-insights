@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Insights Report</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Data Insights Report</h1>
+            <p class="subtitle">Automated Analysis & Recommendations</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="card upload-card">
+            <div id="drop-zone" class="drop-zone">
+                <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h3 style="margin:10px 0 5px; color:var(--text-main);">Upload Your Data</h3>
+                <p>Drag & drop a CSV or Excel file, or click below to browse</p>
+                <input type="file" id="file-input" accept=".csv, .xlsx, .xls" hidden>
+                <button id="browse-btn" class="btn primary">
+                    <i class="fas fa-folder-open"></i> Choose File
+                </button>
+            </div>
+            <div id="loading" class="hidden spinner-container">
+                <div class="spinner"></div>
+                <p class="loading-text">Analyzing your data... this may take a moment.</p>
+            </div>
+            <div id="error-msg" class="error hidden"></div>
+        </section>
+
+        <!-- Dashboard (Hidden until data loads) -->
+        <section id="dashboard" class="hidden">
+
+            <!-- EXECUTIVE SUMMARY -->
+            <div class="section-label">Executive Summary</div>
+            <div class="metrics-row" id="metrics-row"></div>
+
+            <!-- DATA QUALITY -->
+            <div class="row">
+                <div class="col-4">
+                    <div class="section-label">Data Quality</div>
+                    <div class="card">
+                        <div class="score-circle">
+                            <span id="health-score">--</span>
+                        </div>
+                        <p style="text-align:center; color:var(--text-muted); font-size:0.85em; margin-bottom:15px;">Quality Score (out of 100)</p>
+                        <ul id="health-issues" class="issues-list"></ul>
+                    </div>
+                </div>
+
+                <!-- CHARTS -->
+                <div class="col-8">
+                    <div class="section-label">Data Visualizations</div>
+                    <div class="card">
+                        <div id="charts-container" class="charts-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KEY FINDINGS -->
+            <div class="section-label">Key Findings & Recommendations</div>
+            <div class="card">
+                <div id="insights-container"></div>
+            </div>
+
+            <!-- ANOMALIES -->
+            <div class="section-label">Flagged Records for Review</div>
+            <div class="card anomalies-card">
+                <div id="anomalies-container"></div>
+            </div>
+            
+            <div style="text-align:center; margin-top:30px; padding-bottom:20px;">
+                <button class="btn primary" onclick="location.reload()">
+                    <i class="fas fa-redo"></i> Analyze Another File
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+    <script src="/static/charts.js"></script>
+    <script src="/static/insights.js"></script>
+</body>
+</html>
